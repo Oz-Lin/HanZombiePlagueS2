@@ -12,3 +12,13 @@ Security prerequisite: upstream `AdminMenuPermission` defaults to an empty strin
 The upstream prebuilt `net10.0` binaries are unchanged and do NOT contain this fork change. Build from source to use it.
 
 Local validation: .NET SDK 10.0.115; resolved SwiftlyS2.CS2 1.5.2 for the plugin, API project retains upstream beta.27 reference. Release build succeeded with 0 errors and 53 upstream/dependency warnings (including deprecated classic menus and NU1902 for transitive MySqlConnector 2.4.0). The 14 configuration/source assertions passed. These warnings must be reviewed before deployment; this quota-only patch does not claim to resolve them.
+
+## Transitive MySqlConnector remediation
+
+The API project alone restored SwiftlyS2.CS2 1.1.5-beta.27 -> MySqlConnector 2.4.0. The plugin graph already resolved SwiftlyS2.CS2 1.5.2 -> MySqlConnector 2.6.2. An explicit API-project MySqlConnector 2.6.2 reference removes the vulnerable standalone API restore without changing either Swiftly reference or suppressing NuGet audit. NuGet's direct dependency override meets the upstream >=2.4.0 constraint. There are no direct MySqlConnector calls in these plugin/API sources.
+
+Official advisory: https://github.com/mysql-net/MySqlConnector/security/advisories/GHSA-473q-m89c-ghf8
+Patched version starts at 2.6.1: https://github.com/mysql-net/MySqlConnector/releases/tag/2.6.1
+
+This fixes the source build dependency graph only. It does not update the actual server host's shared assemblies or certify its TLS configuration. Do not copy replacement database DLLs over a running Swiftly host. Deployment still requires a compatible host/provider and runtime verification in isolation. Existing tracked upstream binaries remain unchanged.
+`nRemediation validation: Release Rebuild exit 0, 0 errors / 51 remaining warnings; NU1902 eliminated. Both API and plugin `dotnet list package --vulnerable --include-transitive` reported no vulnerable packages in current configured feeds; all 14 bot configuration/source assertions passed. No database connection or live host test was performed.

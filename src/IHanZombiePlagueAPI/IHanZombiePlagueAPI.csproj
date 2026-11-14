@@ -11,6 +11,8 @@
   </PropertyGroup>
 	<ItemGroup>
 		<PackageReference Include="SwiftlyS2.CS2" Version="1.1.5-beta.27" />
+        <!-- GHSA-473q-m89c-ghf8: retain Swiftly API version; override vulnerable transitive connector. -->
+        <PackageReference Include="MySqlConnector" Version="2.6.2" />
 		<PackageReference Include="Microsoft.Extensions.Options.DataAnnotations" Version="8.0.0" />
 	</ItemGroup>
 </Project>
