@@ -96,6 +96,14 @@ public class HeroConfig : GameModeConfig
 }
 public class HZPMainCFG
 {
+    // Fill target counts humans and bots together; zero disables bot filling.
+    private int _botQuota = 10;
+    public int BotQuota
+    {
+        get => _botQuota;
+        set => _botQuota = System.Math.Clamp(value, 0, 64);
+    }
+
     public float RoundReadyTime { get; set; } = 25f;
     public float RoundTime { get; set; } = 3;
 

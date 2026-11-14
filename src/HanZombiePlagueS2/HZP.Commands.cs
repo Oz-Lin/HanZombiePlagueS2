@@ -121,7 +121,7 @@ public class HZPCommands
         _core.Engine.ExecuteCommand("mp_roundtime_defuse 3");
         _core.Engine.ExecuteCommand("mp_roundtime 3");
         _core.Engine.ExecuteCommand("bot_quota_mode fill");
-        _core.Engine.ExecuteCommand("bot_quota 20");
+        _core.Engine.ExecuteCommand($"bot_quota {_mainCFG.CurrentValue.BotQuota}");
         _core.Engine.ExecuteCommand("mp_ignore_round_win_conditions 1");
         _core.Engine.ExecuteCommand("bot_join_after_player 1");
         _core.Engine.ExecuteCommand("bot_chatter off");

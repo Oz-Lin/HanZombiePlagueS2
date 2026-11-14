@@ -1,5 +1,7 @@
 {
   "HZPMainCFG": {
+    // Human + bot fill target (0..64); applied on map load.
+    "BotQuota": 10,
 	"RoundReadyTime": "22.0",
 	"RoundTime": "4.0",
 	"NormalInfection": 
